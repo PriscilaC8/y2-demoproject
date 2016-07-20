@@ -1,6 +1,7 @@
-from flask import Flask, render_template, url_for, redirect, jsonify
+from flask import Flask, render_template, url_for, redirect, request, jsonify
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
+from queries import get_comments_in_region, get_demographics_in_region, get_demographics_who_agree
 app = Flask(__name__)
 
 # Google Maps Config 
@@ -20,34 +21,16 @@ session = DBSession()
 #YOUR WEB APP CODE GOES HERE
 @app.route("/")
 def main():
-    # TODO: NEED DATA
-    demomap = Map(
-        identifier = 'demomap',
-        varname= 'demomap',
-        lat = 37.4419,
-        lng= -122.1419,
-        markers = [
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                'lat': 37.4419,
-                'lng': -122.1419,
-                'infobox' : "<b>Hello</b>"
-            }
-        ]
-    )
-    
-    return render_template('index.html', demomap=demomap)
+    return render_template('index.html')
 
 @app.route("/get_disagreement_demographics")
 def get_disagreement_demographics():
-    import queries
-    demo = queries.get_demographics_who_agree(False)
+    demo = get_demographics_who_agree(False)
     return jsonify(**demo)
 
 @app.route("/get_map_demographics")
 def get_map_demographics(lat_start, lat_end, lon_start, lon_end):
-    import queries
-    demo = queries.get_demographics_in_region(lat_start, lat_end, lon_start, lon_end)
+    demo = get_demographics_in_region(lat_start, lat_end, lon_start, lon_end)
     return jsonify(**demo)
 
 if __name__ == '__main__':
