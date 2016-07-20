@@ -1,6 +1,7 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request, jsonify
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
+from queries import get_comments_in_region, get_demographics_in_region, get_demographics_who_agree
 app = Flask(__name__)
 
 # Google Maps Config 
@@ -19,24 +20,8 @@ session = DBSession()
 
 #YOUR WEB APP CODE GOES HERE
 @app.route("/")
-def main():
-    # TODO: NEED DATA
-    demomap = Map(
-        identifier = 'demomap',
-        varname= 'demomap',
-        lat = 37.4419,
-        lng= -122.1419,
-        markers = [
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                'lat': 37.4419,
-                'lng': -122.1419,
-                'infobox' : "<b>Hello</b>"
-            }
-        ]
-    )
-    
-    return render_template('index.html', demomap=demomap)
+def main():    
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
