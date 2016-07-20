@@ -23,7 +23,8 @@ def get_demographics_in_region(lat_start, lon_start, lat_end, lon_end):
 
 def get_demographics_who_agree(agree=True):
     commenters = {}
-    votes = session.query(Vote).filter(voter_id=0, sentiment=agree).all()
+    votes = session.query(Vote).filter_by(voter_id=1, sentiment=agree).all()
+    print len(votes)
     commenters = [v.comment.commenter for v in votes]
     return get_demographics(commenters)
 

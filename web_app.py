@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, jsonify
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
 app = Flask(__name__)
@@ -37,6 +37,18 @@ def main():
     )
     
     return render_template('index.html', demomap=demomap)
+
+@app.route("/get_disagreement_demographics")
+def get_disagreement_demographics():
+    import queries
+    demo = queries.get_demographics_who_agree(False)
+    return jsonify(**demo)
+
+@app.route("/get_map_demographics")
+def get_map_demographics(lat_start, lat_end, lon_start, lon_end):
+    import queries
+    demo = queries.get_demographics_in_region(lat_start, lat_end, lon_start, lon_end)
+    return jsonify(**demo)
 
 if __name__ == '__main__':
     app.run(debug=True)
