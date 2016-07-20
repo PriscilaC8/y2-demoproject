@@ -4,12 +4,17 @@
     <title>Demo Project</title>
 
     <!-- Bootstrap stuff -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
  
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
 
-    <!-- Flask Stuff -->
-    {{demomap.js}}
+    <!-- Google Maps Stuff -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkbYFo8lquHs3dhFxiH0RTTgqt-epz1-0"></script>
+    <script type="text/javascript" src="../static/js/initMap.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styling.css">
 </head>
 <body>
     <div class="container">
@@ -22,8 +27,8 @@
             </nav>
             <h3 class="text-muted">Demo Project</h3>
         </div>
-        <h3 class="text-muted">Map of Tweets</h3>
-        {{demomap.html}}
+        <h4 class="text-muted">Map of Tweets</h4>
+        <div id="map"></div>
     </div>
 </body>
 </html>
